@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  </head>
+  <body>
+  <f1> Weather Station</f1>
+    <p id="dataTemp">Retrieving data ...</p>
+    <p id="dataLumi">Retrieving data ...</p>
+    <p id="dataHumi">Retrieving data ...</p>
+
+    <script>
+      var socket = io();
+      socket.on('dataSending', function (sensorsData) {
+          $('#dataTemp').text("Temperature : " + sensorsData.t + "°C");
+          $('#dataLumi').text("Luminance : " + sensorsData.lumi);
+          $('#dataHumi').text("Humidity : " + sensorsData.h + "%");
+      });
+    </script>
+  </body>
+</html>
