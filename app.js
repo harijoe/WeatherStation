@@ -1,40 +1,31 @@
+// Express.js + socket.io
+
+//TODO: Include dashboard
+
+// Dependencies setup
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var debug = require('debug')('generator-ejs:server');
-
+//var bodyParser = require('body-parser');
+var debug = require('debug')('generated-express-app');
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
-var app = express();
+// MongoDB
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/weatherstation');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-app.use('/users', users);
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+// Serial port
+var serialport = require("serialport");
+var SerialPort = serialport.SerialPort;
+var sp = new SerialPort("/dev/ttyACM0", {
+    parser: serialport.parsers.readline("\n")
 });
 
-// setup server
+
+// Server setup
+var app = express();
 app.set('port', process.env.PORT || 3000);
 var server = app.listen(app.get('port'), function() {
     debug('Express server listening on port ' + server.address().port);
@@ -43,7 +34,52 @@ var server = app.listen(app.get('port'), function() {
 // Socket.io
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
-    debug('Socket.io user connected');
+    console.log('IO Connection established');
+});
+
+
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Middlewares
+app.use(logger('dev'));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// serial port TODO: Put events in a separate file
+sp.on("data", function (rawData) {
+    try{
+        console.log("Receiving data ...");
+        data = JSON.parse(rawData);
+        // Emit data to user through io
+        io.emit('dataSending', data);
+        // Feed the database
+        var collection = db.get('sensorsCollection');
+        collection.insert({
+            "t" : data.t,
+            "lumi" : data.lumi,
+            "h" : data.h,
+            "f" : data.f,
+            "hi" : data.hi,
+            "date" : new Date()
+        });
+    } catch (error) {}
+});
+
+/// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 /// error handlers
@@ -70,4 +106,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// Include routes
+app.use('/', routes);
 module.exports = app;
