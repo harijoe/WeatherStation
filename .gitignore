@@ -1,3 +1,5 @@
 node_modules/
 .idea/
 *.log
+public/bower_components
+public/pages

@@ -10,4 +10,8 @@ router.get('/sensors', function(req, res, next) {
     res.render('sensors', { title: 'Sensors' });
 });
 
+router.get('/dashboard', function(req, res, next) {
+    res.render('dashboard', { title: 'Dashboard', layout: 'layout' });
+});
+
 module.exports = router;

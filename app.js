@@ -4,6 +4,7 @@
 
 // Dependencies setup
 var express = require('express');
+expressLayouts = require('express-ejs-layouts');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -62,7 +63,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Include routes
+// Set layout
+app.use(expressLayouts);
+
+// Set routes
 app.use('/', routes);
 app.use('/', users);
 
