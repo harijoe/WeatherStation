@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "htt ps://github.com/harijoe/WeatherStation"
+    "url": "https://github.com/harijoe/WeatherStation"
   },
   "dependencies": {
     "body-parser": "~1.10.2",

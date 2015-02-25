@@ -81,10 +81,7 @@ app.use(function(req, res, next) {
 
 // Socket.io
 var io = require('socket.io').listen(server);
-io.sockets.on('connection', function (socket) {
-    debug('IO Connection established');
-});
-
+var chat = require('./chat')(io);
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -115,7 +112,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-
 
 module.exports = app;

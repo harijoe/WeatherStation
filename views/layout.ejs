@@ -56,6 +56,14 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+<!-- Socket.io --> <!-- Must be placed before chat -->
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- Chat --> <!-- Should be placed before Morris data for some reason -->
+<script src="../bower_components/moment/moment.js"></script>
+<script src="../bower_components/livestampjs/livestamp.min.js"></script>
+<script src="js/chat.js"></script>
+
 <!-- Metis Menu Plugin JavaScript -->
 <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
@@ -67,6 +75,9 @@
 <!-- Custom Theme JavaScript -->
 <script src="../dist/js/sb-admin-2.js"></script>
 
+<script>
+    var socket = io.connect();
+</script>
 </body>
 
 </html>
