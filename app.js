@@ -4,7 +4,7 @@
 
 // Dependencies setup
 var express = require('express');
-expressLayouts = require('express-ejs-layouts');
+
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -52,10 +52,6 @@ var server = app.listen(app.get('port'), function() {
     debug('Express server listening on port ' + server.address().port);
 });
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 // Middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -63,8 +59,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
 // Set layout
-app.use(expressLayouts);
+app.set('layout', '');
+
 
 // Set routes
 app.use('/', routes);

@@ -39,9 +39,16 @@
 </head>
 
 <body>
+<div id="wrapper">
 
-<%- wrapper %>
-<!-- /#wrapper -->
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <% include includes/navigation %>
+    </nav>
+    <%-pageWrapper%>
+    <!-- /#wrapper -->
+
+</div>
 
 <!-- jQuery -->
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
