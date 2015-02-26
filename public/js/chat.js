@@ -73,7 +73,8 @@ function newMessage(rol, pseudo, msg, date) {
     htmlBlock += "<\/p>";
     htmlBlock += "<\/div>";
     htmlBlock += "<\/li>";
-    $("#chat-list").append(htmlBlock);
+
+    $("#chat-list").append(htmlBlock).linkify();
 
     // scroll top
     d=$('.chat-panel .panel-body');
