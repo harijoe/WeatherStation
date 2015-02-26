@@ -16,7 +16,7 @@ var users = require('./routes/users');
 // MongoDB
 var mongo = require('mongodb');
 var monk = require('monk');
-//var db = monk('localhost:27017/weatherstation');
+var db = monk('localhost:27017/weatherstation');
 
 // Serial port
 /*var serialport = require("serialport");
@@ -67,6 +67,11 @@ app.set('view engine', 'ejs');
 // Set layout
 app.set('layout', '');
 
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
 
 // Set routes
 app.use('/', routes);
@@ -81,13 +86,7 @@ app.use(function(req, res, next) {
 
 // Socket.io
 var io = require('socket.io').listen(server);
-var chat = require('./chat')(io);
-
-// Make our db accessible to our router
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
+var chat = require('./chat')(io, db);
 
 /// error handlers
 

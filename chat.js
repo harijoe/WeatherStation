@@ -3,7 +3,7 @@
  */
 var debug = require('debug')('generated-express-app');
 
-exports = module.exports = function (io) {
+exports = module.exports = function (io, db) {
     io.sockets.on('connection', function (socket) {
         debug('IO Connection established');
         var pseudo;
@@ -15,6 +15,17 @@ exports = module.exports = function (io) {
             }
             else {
                 io.sockets.emit('append message',{pseudo: pseudo, message: msg});
+                try{
+                    var collection = db.get('chatMessages');
+                    collection.insert({
+                        "pseudo" : pseudo,
+                        "message" : msg,
+                        "date" : new Date()
+                    });
+                } catch (error) {
+
+                }
+
             }
         });
     });
