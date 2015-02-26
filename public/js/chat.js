@@ -36,6 +36,7 @@ socket.on('append message', function (data) {
     else
         rightOrLeft = "right";
     newMessage(rightOrLeft, data.pseudo, data.message);
+    ion.sound.play("button_tiny");
 });
 
 // Pseudo accepted event
@@ -73,5 +74,9 @@ function newMessage(rol, pseudo, msg, date) {
     htmlBlock += "<\/div>";
     htmlBlock += "<\/li>";
     $("#chat-list").append(htmlBlock);
+
+    // scroll top
+    d=$('.chat-panel .panel-body');
+    d.scrollTop(d.prop("scrollHeight"));
 }
 

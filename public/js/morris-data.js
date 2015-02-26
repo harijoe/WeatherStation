@@ -60,7 +60,7 @@ $(function() {
         hideHover: 'auto',
         resize: true
     });
-
+/*
     Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
@@ -97,6 +97,6 @@ $(function() {
         labels: ['Series A', 'Series B'],
         hideHover: 'auto',
         resize: true
-    });
+    });*/
 
 });
