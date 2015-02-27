@@ -36,14 +36,16 @@ function clearAlert() {
 
 function connectionError() {
     $('.sensors-connection-status').removeClass('panel-success');
+    $('.sensors-connection-status').removeClass('panel-green');
     $('.sensors-connection-status').addClass('panel-red');
     $('.sensors-connection-status .panel-heading').html("Connection has been lost for <abbr class=\"timer-on\"></abbr>");
     counter(lastConnTime);
 }
 
 function connectionSuccess() {
+    $('.sensors-connection-status').removeClass('panel-success');
     $('.sensors-connection-status').removeClass('panel-red');
-    $('.sensors-connection-status').addClass('panel-success');
+    $('.sensors-connection-status').addClass('panel-green');
     $('.sensors-connection-status .panel-heading').html("Connection established");
 }
 

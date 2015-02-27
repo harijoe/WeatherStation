@@ -66,11 +66,12 @@ var SerialPort = serialport.SerialPort;
 var sp = new SerialPort("/dev/ttyACM0", {
     parser: serialport.parsers.readline("\n")
 });
+
 // Chat
 var chat = require('./chat')(io, db);
 
 // Serial port
-var sensors = require('./serial-port')(sp, db);
+var sensors = require('./serial-port')(sp, db, io);
 
 /// error handlers
 
