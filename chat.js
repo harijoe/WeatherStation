@@ -1,14 +1,13 @@
 /**
  * Created by Julien on 25/02/2015.
  */
-var debug = require('debug')('generated-express-app');
+var debug = require('debug')('chat');
 
 exports = module.exports = function (io, db) {
     var connectCounter = 0;
     io.sockets.on('connection', function (socket) {
         // Connection counter
         connectCounter ++;
-        console.log('conn');
         io.sockets.emit('update connectCounter', {connectCounter: connectCounter}); // emit to everybody
         debug('IO Connection established');
 

@@ -1,7 +1,7 @@
 /**
  * Created by Julien on 27/02/2015.
  */
-var debug = require('debug')('generated-express-app');
+var debug = require('debug')('serial-port');
 
 exports = module.exports = function (serialport) {
     var SerialPort = serialport.SerialPort;
