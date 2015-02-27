@@ -3,7 +3,7 @@
  */
 var debug = require('debug')('serial-port');
 
-exports = module.exports = function (serialport, db) {
+exports = module.exports = function (sp, db) {
 // Serial port
     debug("Serial port imported");
     sp.on("data", function (rawData) {
