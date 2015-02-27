@@ -60,11 +60,14 @@ app.use(function(req, res, next) {
 // Socket.io
 var io = require('socket.io').listen(server);
 
+// Serial port
+var serialport = require("serialport");
+
 // Chat
 var chat = require('./chat')(io, db);
 
 // Serial port
-var sp = require('./serial-port');
+var sensors = require('./serial-port')(serialport);
 
 /// error handlers
 
