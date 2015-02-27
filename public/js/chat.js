@@ -13,11 +13,12 @@ $(document).ready(function() {
 // Fill table with data
 function populateTable() {
     $.getJSON( '/chat/get-messages', function( data ) {
+       // data=data.slice(data.length -8, data.length);
         $.each(data, function(id, d){
             newMessage('right', d.pseudo, d.message, d.date)
         });
     });
-};
+}
 
 // ====== Events ======
 
@@ -47,6 +48,12 @@ socket.on('pseudo accepted', function (data) {
     pseudo = data.pseudo;
 });
 
+// Connections counter update
+socket.on('update connectCounter', function (data) {
+    c = data.connectCounter;
+    str = c > 1 ? c+" users connected": c+" user connected";
+    $('#connectCounter').text(str);
+});
 
 // ====== Functions ======
 // Press enter key
@@ -57,6 +64,7 @@ function enterPressAlert(e) {
     }
 }
 
+// Add new message
 function newMessage(rol, pseudo, msg, date) {
     date = (typeof date === "undefined") ? Date.now() : new Date(date).getTime();
     var htmlBlock = "";
