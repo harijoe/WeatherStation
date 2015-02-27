@@ -64,7 +64,7 @@ var io = require('socket.io').listen(server);
 var chat = require('./chat')(io, db);
 
 // Serial port
-//var sp = require('./serial-port');
+var sp = require('./serial-port');
 
 /// error handlers
 
