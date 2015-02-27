@@ -3,7 +3,7 @@
  */
 var debug = require('debug')('generated-express-app');
 
-exports = module.exports = function (serialPort) {
+exports = module.exports = function (serialport) {
     var SerialPort = serialport.SerialPort;
     var sp = new SerialPort("/dev/ttyACM0", {
         parser: serialport.parsers.readline("\n")
