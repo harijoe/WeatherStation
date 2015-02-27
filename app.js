@@ -18,33 +18,6 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/weatherstation');
 
-// Serial port
-/*var serialport = require("serialport");
-var SerialPort = serialport.SerialPort;
-var sp = new SerialPort("/dev/ttyACM0", {
-    parser: serialport.parsers.readline("\n")
-});*/
-
-// serial port TODO: Put events in a separate file
-/*sp.on("data", function (rawData) {
-    try{
-        console.log("Receiving data ...");
-        data = JSON.parse(rawData);
-        // Emit data to user through io
-        io.emit('dataSending', data);
-        // Feed the database
-        var collection = db.get('sensorsCollection');
-        collection.insert({
-            "t" : data.t,
-            "lumi" : data.lumi,
-            "h" : data.h,
-            "f" : data.f,
-            "hi" : data.hi,
-            "date" : new Date()
-        });
-    } catch (error) {}
-});*/
-
 // Server setup
 var app = express();
 app.set('port', process.env.PORT || 3000);
@@ -86,7 +59,12 @@ app.use(function(req, res, next) {
 
 // Socket.io
 var io = require('socket.io').listen(server);
+
+// Chat
 var chat = require('./chat')(io, db);
+
+// Serial port
+//var sp = require('./serial-port');
 
 /// error handlers
 

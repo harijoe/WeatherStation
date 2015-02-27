@@ -4,16 +4,23 @@
 var debug = require('debug')('generated-express-app');
 
 exports = module.exports = function (io, db) {
+    var connectCounter = 0;
     io.sockets.on('connection', function (socket) {
+        // Connection counter
+        connectCounter ++;
+        console.log('conn');
+        io.sockets.emit('update connectCounter', {connectCounter: connectCounter}); // emit to everybody
         debug('IO Connection established');
+
+        // Chat events
         var pseudo;
         socket.on('chat message', function (msg) {
-            if (pseudo == null) {
+            if (pseudo == null) { // Set the pseudo
                 pseudo = msg;
                 debug('User '+pseudo+' identified');
-                socket.emit('pseudo accepted', {pseudo: pseudo});
+                socket.emit('pseudo accepted', {pseudo: pseudo}); // emit to triggering user
             }
-            else {
+            else { // Sends a message
                 io.sockets.emit('append message',{pseudo: pseudo, message: msg});
                 try{
                     var collection = db.get('chatMessages');
@@ -27,6 +34,12 @@ exports = module.exports = function (io, db) {
                 }
 
             }
+        });
+
+        socket.on('disconnect', function() {
+            console.log('disc');
+            connectCounter--;
+            io.sockets.emit('update connectCounter', {connectCounter: connectCounter}); // emit to everybody
         });
     });
 };
