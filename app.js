@@ -62,12 +62,15 @@ var io = require('socket.io').listen(server);
 
 // Serial port
 var serialport = require("serialport");
-
+var SerialPort = serialport.SerialPort;
+var sp = new SerialPort("/dev/ttyACM0", {
+    parser: serialport.parsers.readline("\n")
+});
 // Chat
 var chat = require('./chat')(io, db);
 
 // Serial port
-var sensors = require('./serial-port')(serialport);
+var sensors = require('./serial-port')(sp, db);
 
 /// error handlers
 

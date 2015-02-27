@@ -3,12 +3,9 @@
  */
 var debug = require('debug')('serial-port');
 
-exports = module.exports = function (serialport) {
-    var SerialPort = serialport.SerialPort;
-    var sp = new SerialPort("/dev/ttyACM0", {
-        parser: serialport.parsers.readline("\n")
-    });
+exports = module.exports = function (serialport, db) {
 // Serial port
+    debug("Serial port imported");
     sp.on("data", function (rawData) {
         try {
             debug("Receiving data ...");
