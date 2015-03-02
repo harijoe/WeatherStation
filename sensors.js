@@ -8,7 +8,7 @@ exports = module.exports = function (sp, db, io) {
     debug("Serial port imported");
     sp.on("data", function (rawData) {
         try {
-            debug("Data from sensors has been received);
+            debug("Data from sensors has been received");
             data = JSON.parse(rawData);
             // Emit data to user through io
             io.emit('dataSending', data);
