@@ -2,6 +2,7 @@
  * Created by Julien on 27/02/2015.
  */
 var debug = require('debug')('serial-port');
+var _ = require("underscore");
 
 exports = module.exports = function (sp, db, io) {
 // Serial port
