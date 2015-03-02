@@ -76,7 +76,7 @@ try {
 var chat = require('./chat')(io, db);
 
 // Serial port
-//var sensors = require('./sensors')(sp, db, io);
+var sensors = require('./sensors')(sp, db, io);
 
 /// error handlers
 
