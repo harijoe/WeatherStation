@@ -34,10 +34,12 @@ socket.on('append message', function (data) {
     // Decide if incoming message is current user message
     if (pseudo == data.pseudo)
         rightOrLeft = "left";
-    else
+    else {
         rightOrLeft = "right";
+        ion.sound.play("button_tiny");
+    }
+
     newMessage(rightOrLeft, data.pseudo, data.message);
-    ion.sound.play("button_tiny");
 });
 
 // Pseudo accepted event

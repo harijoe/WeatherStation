@@ -61,17 +61,22 @@ app.use(function(req, res, next) {
 var io = require('socket.io').listen(server);
 
 // Serial port
-var serialport = require("serialport");
-var SerialPort = serialport.SerialPort;
-var sp = new SerialPort("/dev/ttyACM0", {
-    parser: serialport.parsers.readline("\n")
-});
+var serialPortFactory = require("serialport");
+var SerialPort = serialPortFactory.SerialPort;
+var sp;
+try {
+    sp = new SerialPort("/dev/ttyACM0", {
+        parser: serialPortFactory.parsers.readline("\n")
+    });
+} catch (e) {
+    sp = null;
+}
 
 // Chat
 var chat = require('./chat')(io, db);
 
 // Serial port
-var sensors = require('./serial-port')(sp, db, io);
+//var sensors = require('./sensors')(sp, db, io);
 
 /// error handlers
 
