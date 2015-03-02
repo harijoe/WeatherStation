@@ -7,6 +7,7 @@ var _ = require("underscore");
 exports = module.exports = function (sp, db, io) {
 // Serial port
     debug("Serial port imported");
+    var throttled = _.throttle(insertDB(data), 10000); // Throttle to limit the data flow
     sp.on("data", function (rawData) {
         try {
             debug("Data from sensors has been received");
@@ -14,7 +15,7 @@ exports = module.exports = function (sp, db, io) {
             // Emit data to user through io
             io.emit('dataSending', data);
             // Feed the database (no more than once per x seconds)
-            _.throttle(insertDB(data), 10000);
+            throttled();
         } catch (error) {
             debug(error);
         }
