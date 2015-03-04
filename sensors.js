@@ -13,7 +13,7 @@ exports = module.exports = function (sp, db, io) {
             data = JSON.parse(rawData);
             // Emit data to user through io
             io.emit('dataSending', data);
-            if((Date.now() - timer) > 500*1000) {
+            if((Date.now() - timer) > 150*1000) {
                 insertIntoDB(data, db);
                 timer = Date.now();
             }

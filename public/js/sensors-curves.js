@@ -14,7 +14,7 @@ $(function () {
          console.log(data.d.length);
          */
         /**/
-        Morris.Area({
+        Morris.Line({
             element: 'morris-area-chart',
             data: d,
             xkey: 'date',

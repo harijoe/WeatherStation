@@ -31,7 +31,7 @@ router.get('/chat/get-messages', function(req, res) {
 router.get('/sensors/get-sensors-data', function(req, res) {
     var db = req.db;
     var collection = db.get('sensorsCollection');
-    collection.find({}, {sort: {date: -1}, limit: 300}, function(e, docs){
+    collection.find({}, {sort: {date: -1}, limit: 580}, function(e, docs){
         if (e) return next(e);
         res.send(docs);
     });

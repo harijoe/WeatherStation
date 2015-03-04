@@ -6,9 +6,9 @@ socket.on('dataSending', function (sensorsData) {
     $('.sensors .fa-spinner').hide(); // hide spinners
 
     // Update sensors value
-    $('.sensors-temperature em').text("Temperature : " + sensorsData.t + "°C");
-    $('.sensors-luminance em').text("Luminance : " + sensorsData.lumi);
-    $('.sensors-humidity em').text("Humidity : " + sensorsData.h + "%");
+    $('.sensors-temperature em').text(sensorsData.t + "°C");
+    $('.sensors-luminance em').text(sensorsData.lumi);
+    $('.sensors-humidity em').text(sensorsData.h + "%");
 
     clearAlert();
 });
