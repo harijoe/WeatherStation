@@ -15,6 +15,7 @@ cd node_modules/serialport
 node-pre-gyp build
 
 ## Database
+install mongodb : http://raspbian-france.fr/installer-mongodb-raspberry-pi/
 
 # Run
 Website address :
