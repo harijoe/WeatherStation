@@ -13,6 +13,10 @@ router.get('/dashboard', function(req, res, next) {
     res.render('dashboard', { title: 'Dashboard', layout: 'layout' });
 });
 
+router.get('/', function(req, res, next) {
+    res.render('dashboard', { title: 'Dashboard', layout: 'layout' });
+});
+
 router.get('/darwin', function(req, res, next) {
     res.render('darwin', { title: 'Darwin', layout: 'layout' });
 });
